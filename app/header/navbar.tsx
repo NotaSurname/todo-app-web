@@ -3,44 +3,41 @@ import React from 'react'
 import { useTheme } from '../theme/themeContext';
 import {DarkLightModeIcon} from "@/app/theme/dark_light_mode";
 import { useRouter } from 'next/navigation'
+import {ConnectionButton} from "@/app/components/connectionButton";
+import {LogOutButton} from "@/app/components/logOutButton";
 export function NavBar() {
+
+    const isLogged = false
+
     const { isDarkMode, toggleDarkMode } = useTheme();
     const router = useRouter()
 
-    const userProfilePicture = "/user.svg";
-
-    const navBarBg = isDarkMode ? "bg-[#0A0A0A]" : "bg-[#F8F8FF]";
+    const navBarBg = isDarkMode ? "bg-[#0A0A0A]" : "bg-[#f1f1f1]";
     const navBarText = isDarkMode ? "text-[#F8F8FF]" : "text-gray-900";
     const navBarBorder = isDarkMode ? "border-gray-700" : "border-gray-200";
-
-    const profileBgAndBorder = isDarkMode
-        ? "bg-stone-600/50 border-black"
-        : "bg-gray-200 border-gray-400";
 
     const handleUserClick = () => {
         router.push('/logIn')
     }
 
     return (
-        <div className={`flex flex-row items-center justify-around h-15 w-full border-b-2 ${navBarBg} ${navBarText} ${navBarBorder} px-4`}>
+        <div className={`
+            flex flex-row
+            items-center justify-between
+            h-15 w-4/6 border-2
+            ${navBarBg} ${navBarText} ${navBarBorder}
+            mx-auto mt-12
+            rounded-full px-10
+        `}>
             <ul>
                 <li className="font-bold text-lg">TODO LIST</li>
             </ul>
-            <ul className="flex flex-row items-center space-x-5">
 
-                <DarkLightModeIcon/>
-
-                <div
-                    className={`h-10 w-10 rounded-full overflow-hidden border cursor-pointer hover:opacity-80 transition select-none ${profileBgAndBorder}`}
-                    onClick={handleUserClick}
-                >
-                    <img
-                        src={userProfilePicture}
-                        alt="Profile picture"
-                        className="w-full h-full object-cover"
-                        draggable="false"
-                    />
-                </div>
+            <ul>
+                <li className="flex items-center space-x-5">
+                    <DarkLightModeIcon/>
+                    {isLogged ? <LogOutButton size={"w-full"} onClick={handleUserClick}/> : <ConnectionButton size={"w-full"} onClick={handleUserClick}/>}
+                </li>
             </ul>
         </div>
     );

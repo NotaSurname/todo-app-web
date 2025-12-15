@@ -1,6 +1,6 @@
 import { prisma } from "@/app/lib/prisma"
 import {NavBar} from "@/app/header/navbar";
-import {Button} from "@/app/components/button";
+import {LogOutButton} from "@/app/components/logOutButton";
 
 export default async function Home() {
     const posts = await prisma.post.findMany()
@@ -9,7 +9,6 @@ export default async function Home() {
     return (
         <div>
             <NavBar/>
-            <Button text={"Se connecter"} size={"w-1/2"}/>
         </div>
     )
 }
