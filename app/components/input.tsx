@@ -2,7 +2,7 @@
 
 export function Input({type, label, id, size}: {type: string, label: string, id: string, size: string}){
   return (
-    <div className="relative mb-9">
+    <div className="relative">
       <input
         type={type}
         id={id}
