@@ -1,14 +1,8 @@
 'use client'
 
-export function Input({type, label, id, size
-}: {
-  type: string
-  label: string
-  id: string
-  size: string
-}) {
+export function Input({type, label, id, size}: {type: string, label: string, id: string, size: string}){
   return (
-    <div className="relative mb-6">
+    <div className="relative mb-9">
       <input
         type={type}
         id={id}

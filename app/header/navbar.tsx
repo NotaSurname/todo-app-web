@@ -36,7 +36,7 @@ export function NavBar() {
             <ul>
                 <li className="flex items-center space-x-5">
                     <DarkLightModeIcon/>
-                    {isLogged ? <LogOutButton size={"w-full"} onClick={handleUserClick}/> : <ConnectionButton size={"w-full"} onClick={handleUserClick}/>}
+                    {isLogged ? <LogOutButton size={"w-full p-2"} onClick={handleUserClick}/> : <ConnectionButton size={"w-full p-2"} onClick={handleUserClick}/>}
                 </li>
             </ul>
         </div>

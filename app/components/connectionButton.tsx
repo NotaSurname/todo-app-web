@@ -3,7 +3,7 @@ export function ConnectionButton({size, onClick}: {size: string, onClick: any}) 
         <div>
             <button className={`
                 border border-blue-500
-                rounded-md p-4 ${size}
+                rounded-md ${size}
                 hover:bg-blue-500 text-black dark:text-[#F8F8FF]
                 select-none cursor-pointer`}
                     onClick={onClick}

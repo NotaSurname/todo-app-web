@@ -15,7 +15,7 @@ export default function LogInPage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-[#0A0A0A]">
-            <form className="border border-gray-400/50 py-10 rounded-lg w-[500px]">
+            <form className="border border-gray-400/50 py-10 rounded-lg w-[500px] h-[600px]">
                 <div className="relative flex items-center justify-between -top-3 px-5">
                     <p onClick={handleReturnClick} className="select-none inline cursor-pointer text-gray-900 dark:text-[#F8F8FF]">
                         &larr;
@@ -33,7 +33,7 @@ export default function LogInPage() {
                     <DarkLightModeIcon/>
                 </div>
 
-                <h1 className="pl-10 text-3xl font-bold mb-4 text-[#0A0A0A] dark:text-white">Connexion</h1>
+                <h1 className="pl-10 text-3xl font-bold mb-11 mt-9 text-[#0A0A0A] dark:text-white">Page de Connexion</h1>
 
                 <div className="px-5">
                     <Input type={"mail"} label={"Mail"} id={"mail"} size={"w-full"}/>
@@ -47,11 +47,12 @@ export default function LogInPage() {
                                     after:bg-[#0A0A0A] dark:after:bg-[#F8F8FF]
                                     hover:after:scale-x-100
                            text-[#0A0A0A] dark:text-white
+                           mb-7
                            ">Afficher le mot de passe</label>
                 </div>
 
                 <div className="px-5">
-                    <ConnectionButton size={"w-full"} onClick={handleReturnClick}/>
+                    <ConnectionButton size={"w-full p-4"} onClick={handleReturnClick}/>
                 </div>
 
             </form>
