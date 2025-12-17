@@ -13,11 +13,22 @@ datasource db {
   provider = "mysql"
 }
 
-model Post {
+model User {
   id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(255)
-  content   String?  @db.Text
-  published Boolean  @default(false)
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  tasks     Task[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id        Int      @id @default(autoincrement())
+  content   String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
 }

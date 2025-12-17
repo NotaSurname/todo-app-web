@@ -1,14 +1,14 @@
 'use client'
 
-export function Input({type, label, id, size}: {type: string, label: string, id: string, size: string}){
+import React, {ChangeEventHandler} from "react";
+
+export function Input({ className, id, placeholder, ...props }: React.ComponentProps<"input">){
   return (
     <div className="relative">
       <input
-        type={type}
-        id={id}
         placeholder=" "
         className={`
-          peer ${size} p-3 text-lg
+          peer p-3 text-lg
           bg-white dark:bg-[#0A0A0A]
           border-2 rounded-lg
           border-black dark:border-gray-600
@@ -16,7 +16,11 @@ export function Input({type, label, id, size}: {type: string, label: string, id:
           focus:border-[#0A0A0A]
           focus:outline-none dark:focus:border-white/70
           transition tracking-wide
+
+          ${className}
         `}
+
+        {...props}
       />
 
       <label
@@ -42,7 +46,7 @@ export function Input({type, label, id, size}: {type: string, label: string, id:
           peer-not-placeholder-shown:text-sm
         "
       >
-        {label}
+        {placeholder}
       </label>
     </div>
   )

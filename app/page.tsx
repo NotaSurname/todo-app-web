@@ -1,17 +1,16 @@
 import { prisma } from "@/app/lib/prisma"
 import {NavBar} from "@/app/header/navbar";
+import {Content} from "@/app/addTask"
+import {TaskCard} from "@/app/taskCard"
 
-export default async function Home() {
-    const posts = await prisma.post.findMany()
-    const countPost = 0
+export default function Home() {
 
     return (
         <div>
             <NavBar/>
-            <div className="flex items-center justify-center mt-150">
-                <img src="/add.svg" alt="Logo ajouter une tâche" className="h-7 w-7 cursor-pointer border-none rounded-lg
-                     hover:border-gray-700/50 hover:bg-gray-400/50 transition-all duration-200 ease-out"/>
-            </div>
+            <Content size={"mt-15"}/>
+            <TaskCard taskName={"Faire mes devoirs"}/>
+            <TaskCard taskName={"Faire mes devoirs"}/>
         </div>
     )
 }

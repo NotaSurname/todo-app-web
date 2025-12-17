@@ -15,7 +15,7 @@ export default function LogInPage() {
         router.push('/')
     }
     const handleSignInClick = () => {
-        router.push('/signIn')
+        router.push('/signUp')
     }
 
     return (
@@ -41,8 +41,18 @@ export default function LogInPage() {
                 <h1 className="pl-10 text-3xl font-bold mb-11 mt-9 text-[#0A0A0A] dark:text-white">Page de Connexion</h1>
 
                 <div className="px-5">
-                    <Input type={"mail"} label={"Mail"} id={"mail"} size={"w-full mb-5"}/>
-                    <Input type={showPassword ? "text" : "password"} label={"Mot de passe"} id={"password"} size={"w-full mb-5"}/>
+                    <Input
+                        type={"mail"}
+                        placeholder={"Mail"}
+                        id={"mail"}
+                        className={"w-full mb-5"}
+                        onChange={undefined}
+                        value={undefined}/>
+                    <Input type={showPassword ? "text" : "password"}
+                           placeholder={"Mot de passe"}
+                           id={"password"}
+                           className={"w-full mb-5"}
+                           onChange={undefined}/>
 
                 </div>
 
