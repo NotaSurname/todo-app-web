@@ -8,7 +8,7 @@ import { useTheme } from '@/app/theme/themeContext'
 import { ToggleTaskStatus } from "@/app/dashboard/actions"
 
 
-export function TaskCard({ taskName, taskId, initialCompleted }: {taskName: string, taskId: string, initialCompleted: boolean}) {
+export function TaskCard({ taskName, taskId, initialCompleted }: {taskName: string, taskId: number, initialCompleted: boolean}) {
 
   const [completed, setCompleted] = useState(initialCompleted || false)
   const [isEditing, setIsEditing] = useState(false)
