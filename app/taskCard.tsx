@@ -4,21 +4,21 @@ import React from "react";
 import { useState } from "react"
 import { Input } from "@/app/components/input"
 import { Button } from "@/app/components/button"
+import { useTheme } from '@/app/theme/themeContext'
+import { ToggleTaskStatus } from "@/app/dashboard/actions"
 
 
-export function TaskCard({ taskName }: {taskName: string}) {
+export function TaskCard({ taskName, taskId, initialCompleted }: {taskName: string, taskId: string, initialCompleted: boolean}) {
 
-  const [completed, setCompleted] = useState(false)
+  const [completed, setCompleted] = useState(initialCompleted || false)
   const [isEditing, setIsEditing] = useState(false)
-  const [value, setValue] = useState(taskName)
+  const [value, setValue] = useState(taskName || '')
 
 
   const handleSaveButton = () => {
     // DB handling here
     setIsEditing(false)
   }
-
-
 
 
   return (
@@ -38,10 +38,18 @@ export function TaskCard({ taskName }: {taskName: string}) {
 
         <div className="flex items-center gap-4">
           <input
-            type="checkbox"
-            checked={completed}
-            onChange={() => setCompleted(prev => !prev)}
-            className="h-5 w-5 cursor-pointer accent-blue-500"
+              type="checkbox"
+              checked={completed}
+              onChange={async () => {
+                setCompleted(!completed)
+                try {
+                  await ToggleTaskStatus(taskId, completed)
+                } catch (err) {
+                  setCompleted(completed)
+                  alert("Erreur de connexion")
+                }
+              }}
+              className={`h-5 w-5 cursor-pointer ${completed ? 'accent-black dark:accent-white' : ''}`}
           />
 
           <p
@@ -49,6 +57,7 @@ export function TaskCard({ taskName }: {taskName: string}) {
               text-lg font-semibold select-none transition text-black dark:text-white
               ${completed ? 'line-through text-gray-400' : ''}
             `}
+            key={taskId}
           >
             {taskName}
           </p>

@@ -5,12 +5,15 @@ import {DarkLightModeIcon} from "@/app/theme/dark_light_mode";
 import { useRouter } from 'next/navigation'
 import {ConnectionButton} from "@/app/components/connectionButton";
 import {LogOutButton} from "@/app/components/logOutButton";
+import {useSession, signOut} from "next-auth/react"
+
+export const isLogged = false
+
 export function NavBar() {
-
-    const isLogged = false
-
     const { isDarkMode, toggleDarkMode } = useTheme();
     const router = useRouter()
+
+    const { data: session, status } = useSession()
 
     const navBarBg = isDarkMode ? "bg-[#0A0A0A]" : "bg-[#f1f1f1]";
     const navBarText = isDarkMode ? "text-[#F8F8FF]" : "text-gray-900";
@@ -18,6 +21,10 @@ export function NavBar() {
 
     const handleUserClick = () => {
         router.push('/logIn')
+    }
+
+    const handleLogOutClick = () => {
+        signOut({callbackUrl: '/'})
     }
 
     return (
@@ -34,9 +41,19 @@ export function NavBar() {
             </ul>
 
             <ul>
+                {status == "authenticated" ? <li className="text-lg">Bonjour {session.user?.name} !</li> : null}
+            </ul>
+
+            <ul>
                 <li className="flex items-center space-x-5">
                     <DarkLightModeIcon/>
-                    {isLogged ? <LogOutButton size={"w-full p-2"} onClick={handleUserClick}/> : <ConnectionButton size={"w-full p-2"} onClick={handleUserClick}/>}
+                    {status === "authenticated" ? (
+                        <div className="flex items-center space-x-3">
+                            <LogOutButton size={"w-full p-2"} onClick={handleLogOutClick}/>
+                        </div>
+                    ) : (
+                        <ConnectionButton size={"w-full p-2"} onClick={handleUserClick}/>
+                    )}
                 </li>
             </ul>
         </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeWrapper from "@/app/theme/themeWrapper";
+import {NextAuthProvider} from "@/app/providers/NextAuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +27,11 @@ export default function RootLayout({
   return (
     <html lang="fr" className="bg-[#F8F8FF] dark:bg-[#0A0A0A] transition-colors duration-300">
       <body>
-        <ThemeWrapper>
-          {children}
-        </ThemeWrapper>
+        <NextAuthProvider>
+          <ThemeWrapper>
+            {children}
+          </ThemeWrapper>
+        </NextAuthProvider>
       </body>
     </html>
   );

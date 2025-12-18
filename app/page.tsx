@@ -2,6 +2,7 @@ import { prisma } from "@/app/lib/prisma"
 import {NavBar} from "@/app/header/navbar";
 import {Content} from "@/app/addTask"
 import {TaskCard} from "@/app/taskCard"
+import Page from "@/app/dashboard/page";
 
 export default function Home() {
 
@@ -9,8 +10,7 @@ export default function Home() {
         <div>
             <NavBar/>
             <Content size={"mt-15"}/>
-            <TaskCard taskName={"Faire mes devoirs"}/>
-            <TaskCard taskName={"Faire mes devoirs"}/>
+            <Page/>
         </div>
     )
 }

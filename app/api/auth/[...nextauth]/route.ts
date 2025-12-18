@@ -4,7 +4,9 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/app/lib/prisma";
 import bcrypt from "bcrypt";
 
-export default NextAuth({
+
+
+const handler = NextAuth({
     adapter: PrismaAdapter(prisma),
     providers: [
       CredentialsProvider({
@@ -25,7 +27,7 @@ export default NextAuth({
           const isValid = await bcrypt.compare(credentials.password, user.password);
           if (!isValid) return null;
 
-          return { id: user.id, name: user.firstName, email: user.email };
+          return { id: user.id.toString(), name: user.firstName, email: user.email };
         }
       })
     ],
@@ -33,7 +35,9 @@ export default NextAuth({
       strategy: "jwt"
     },
     pages: {
-      signIn: "@/app/api/auth/signin"
+      signIn: "/logIn"
     },
     secret: process.env.NEXTAUTH_SECRET
   });
+
+export { handler as GET, handler as POST }

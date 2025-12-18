@@ -5,11 +5,33 @@ import { useRouter } from 'next/navigation'
 import {DarkLightModeIcon} from "@/app/theme/dark_light_mode";
 import {useTheme} from "@/app/theme/themeContext";
 import {Input} from "@/app/components/input"
+import { signIn } from 'next-auth/react'
 import {ConnectionButton} from "@/app/components/connectionButton";
+import { useSession } from "next-auth/react"
 
 export default function LogInPage() {
     const router = useRouter()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const [error, setError] = useState('')
+
+
+
+    const handleSubmit = async (e: React.FromEvent) => {
+        e.preventDefault()
+        setError('')
+
+        const res = await signIn('credentials', {
+            email, password, redirect: false
+        })
+        if (res?.error) {
+            setError("Email ou mot de passe incorrect")
+        } else {
+            router.push('/')
+            router.refresh()
+        }
+    }
 
     const handleReturnClick = () => {
         router.push('/')
@@ -18,9 +40,10 @@ export default function LogInPage() {
         router.push('/signUp')
     }
 
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-[#0A0A0A]">
-            <form className="border border-gray-400/50 py-10 rounded-lg w-[500px] h-[540px]">
+            <form onSubmit={handleSubmit} className="border border-gray-400/50 py-10 rounded-lg w-[500px] h-[540px]">
                 <div className="relative flex items-center justify-between -top-3 px-5">
                     <p onClick={handleReturnClick} className="select-none inline cursor-pointer text-gray-900 dark:text-[#F8F8FF]">
                         &larr;
@@ -46,13 +69,16 @@ export default function LogInPage() {
                         placeholder={"Mail"}
                         id={"mail"}
                         className={"w-full mb-5"}
-                        onChange={undefined}
-                        value={undefined}/>
+                        onChange={(val) => setEmail(val.target.value)}
+                        value={email}
+                    />
                     <Input type={showPassword ? "text" : "password"}
                            placeholder={"Mot de passe"}
                            id={"password"}
                            className={"w-full mb-5"}
-                           onChange={undefined}/>
+                           onChange={(val) => setPassword(val.target.value)}
+                           value={password}
+                    />
 
                 </div>
 
@@ -84,8 +110,12 @@ export default function LogInPage() {
                     </label>
                 </div>
 
+                <div>
+                    {error && <p className="text-red-500 text-center">{error}</p>}
+                </div>
+
                 <div className="px-5">
-                    <ConnectionButton size={"w-full p-4"} onClick={handleReturnClick}/>
+                    <ConnectionButton type={"submit"} size={"w-full p-4"} onClick={handleSubmit}/>
                 </div>
 
             </form>
